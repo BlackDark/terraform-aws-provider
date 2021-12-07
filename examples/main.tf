@@ -11,6 +11,7 @@ terraform {
 provider "blackdarkaws" {
   role_arn     = "arn"
   session_name = "Test"
+  region       = "us-east-1"
 }
 
 resource "blackdarkaws_oidc_provider_client_id" "edu" {

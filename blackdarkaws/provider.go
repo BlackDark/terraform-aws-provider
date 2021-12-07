@@ -40,6 +40,11 @@ func (p *provider) GetSchema(_ context.Context) (schema.Schema, []*tfprotov6.Dia
 				Optional: true,
 				Computed: true,
 			},
+			"region": {
+				Type:     types.StringType,
+				Optional: true,
+				Computed: true,
+			},
 		},
 	}, nil
 }
@@ -48,6 +53,7 @@ func (p *provider) GetSchema(_ context.Context) (schema.Schema, []*tfprotov6.Dia
 type providerData struct {
 	RoleArn     types.String `tfsdk:"role_arn"`
 	SessionName types.String `tfsdk:"session_name"`
+	Region 		types.String `tfsdk:"region"`
 }
 
 // STSAssumeRoleAPI defines the interface for the AssumeRole function.
@@ -121,6 +127,31 @@ func (p *provider) Configure(ctx context.Context, req tfsdk.ConfigureProviderReq
 		return
 	}
 
+	var region string
+
+	if config.Region.Null {
+		if value, ok := os.LookupEnv("AWS_REGION"); ok {
+			region = value
+		}
+		if value, ok := os.LookupEnv("AWS_DEFAULT_REGION"); ok {
+			region = value
+		}
+		region = "us-east-1"
+	} else {
+		region = config.Region.Value
+	}
+
+
+	if region == "" {
+		resp.Diagnostics = append(resp.Diagnostics, &tfprotov6.Diagnostic{
+			// Error vs warning - empty value must stop execution
+			Severity: tfprotov6.DiagnosticSeverityError,
+			Summary:  "Unable to find region",
+			Detail:   "region cannot be an empty string",
+		})
+		return
+	}
+
 	if config.SessionName.Null {
 		sessionName = os.Getenv("HASHICUPS_PASSWORD")
 	} else {
@@ -136,7 +167,7 @@ func (p *provider) Configure(ctx context.Context, req tfsdk.ConfigureProviderReq
 		})
 	}
 
-	cfg, err := awsConfig.LoadDefaultConfig(context.TODO())
+	cfg, err := awsConfig.LoadDefaultConfig(context.TODO(), awsConfig.WithRegion(region))
 	if err != nil {
 		resp.Diagnostics = append(resp.Diagnostics, &tfprotov6.Diagnostic{
 			Severity: tfprotov6.DiagnosticSeverityError,
@@ -163,7 +194,7 @@ func (p *provider) Configure(ctx context.Context, req tfsdk.ConfigureProviderReq
 		return
 	}
 
-	cfg2, err := awsConfig.LoadDefaultConfig(context.TODO(),
+	cfg2, err := awsConfig.LoadDefaultConfig(context.TODO(), awsConfig.WithRegion(region),
 		awsConfig.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(*result.Credentials.AccessKeyId, *result.Credentials.SecretAccessKey, *result.Credentials.SessionToken)))
 	if err != nil {
 		resp.Diagnostics = append(resp.Diagnostics, &tfprotov6.Diagnostic{
