@@ -17,11 +17,11 @@ type oidcProviderClientIdResourceType struct{}
 func (t oidcProviderClientIdResourceType) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "My resource",
+		MarkdownDescription: "Resource for synching the audience/ClientID in the AWS OIDC providers. The official AWS provider does currently not support this feature therefore this resource.",
 
 		Attributes: map[string]tfsdk.Attribute{
 			"client_id": {
-				MarkdownDescription: "The wanted audience",
+				MarkdownDescription: "The ClientID/Audience to be added to the OIDC provider.",
 				Optional:            false,
 				Required:            true,
 				Type:                types.StringType,
@@ -30,7 +30,7 @@ func (t oidcProviderClientIdResourceType) GetSchema(ctx context.Context) (tfsdk.
 				},
 			},
 			"oidc_arn": {
-				MarkdownDescription: "ARN of ID provider",
+				MarkdownDescription: "The target OIDC provider ARN where the ClientID should be added.",
 				Optional:            false,
 				Required:            true,
 				Type:                types.StringType,

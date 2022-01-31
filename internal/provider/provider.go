@@ -143,19 +143,19 @@ func (p *provider) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostic
 	return tfsdk.Schema{
 		Attributes: map[string]tfsdk.Attribute{
 			"role_arn": {
-				MarkdownDescription: "Role ARN",
+				MarkdownDescription: "The ARN of the role to be assumed for this provider.",
 				Optional:            false,
 				Required:            true,
 				Type:                types.StringType,
 			},
 			"session_name": {
-				MarkdownDescription: "Session",
+				MarkdownDescription: "Session name which will be set for the assumed role.",
 				Optional:            false,
 				Required:            true,
 				Type:                types.StringType,
 			},
 			"region": {
-				MarkdownDescription: "Region",
+				MarkdownDescription: "The region where the oidc provider will be updated. Defaults to us-east-1 if not set.",
 				Optional:            true,
 				Type:                types.StringType,
 			},
