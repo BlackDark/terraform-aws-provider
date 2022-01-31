@@ -7,7 +7,6 @@ import (
 	"os"
 	"sync"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	awshttp "github.com/aws/aws-sdk-go-v2/aws/transport/http"
 	awsConfig "github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"
@@ -27,7 +26,6 @@ type provider struct {
 	//
 	// TODO: If appropriate, implement upstream provider SDK or HTTP client.
 	// client vendorsdk.ExampleClient
-	client    aws.Config
 	iamClient iam.Client
 	lock      *sync.Mutex
 
@@ -44,7 +42,6 @@ type provider struct {
 
 // providerData can be used to store data from the Terraform configuration.
 type providerData struct {
-	Example     types.String `tfsdk:"example"`
 	RoleArn     types.String `tfsdk:"role_arn"`
 	SessionName types.String `tfsdk:"session_name"`
 	Region      types.String `tfsdk:"region"`
@@ -120,26 +117,21 @@ func (p *provider) Configure(ctx context.Context, req tfsdk.ConfigureProviderReq
 	cfg2, err := awsConfig.LoadDefaultConfig(context.TODO(), awsConfig.WithRegion(data.Region.Value),
 		awsConfig.WithHTTPClient(httpClient),
 		awsConfig.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(*result.Credentials.AccessKeyId, *result.Credentials.SecretAccessKey, *result.Credentials.SessionToken)))
+
 	if err != nil {
 		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to load config for assumed role:\n\n%s", err))
 		return
 	}
-	p.client = cfg2
+
 	p.iamClient = *iam.NewFromConfig(cfg2)
 	p.lock = &sync.Mutex{}
-
-	// Configuration values are now available.
-	// if data.Example.Null { /* ... */ }
-
-	// If the upstream provider SDK or HTTP client requires configuration, such
-	// as authentication or logging, this is a great opportunity to do so.
 
 	p.configured = true
 }
 
 func (p *provider) GetResources(ctx context.Context) (map[string]tfsdk.ResourceType, diag.Diagnostics) {
 	return map[string]tfsdk.ResourceType{
-		"provider_oidc_provider_client_id": oidcProviderClientIdResourceType{},
+		"awsextension_oidc_provider_client_id": oidcProviderClientIdResourceType{},
 	}, nil
 }
 
@@ -150,11 +142,6 @@ func (p *provider) GetDataSources(ctx context.Context) (map[string]tfsdk.DataSou
 func (p *provider) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
 		Attributes: map[string]tfsdk.Attribute{
-			"example": {
-				MarkdownDescription: "Example provider attribute",
-				Optional:            true,
-				Type:                types.StringType,
-			},
 			"role_arn": {
 				MarkdownDescription: "Role ARN",
 				Optional:            false,

@@ -1,3 +1,3 @@
-provider "scaffolding" {
+provider "awsextension" {
   # example configuration here
 }

@@ -35,14 +35,6 @@ func (t oidcProviderClientIdResourceType) GetSchema(ctx context.Context) (tfsdk.
 				Required:            true,
 				Type:                types.StringType,
 			},
-			"id": {
-				Computed:            true,
-				MarkdownDescription: "my identifier",
-				PlanModifiers: tfsdk.AttributePlanModifiers{
-					tfsdk.UseStateForUnknown(),
-				},
-				Type: types.StringType,
-			},
 		},
 	}, nil
 }
@@ -81,10 +73,6 @@ func (r oidcProviderClientIdResource) Create(ctx context.Context, req tfsdk.Crea
 		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to add audience to provider, got error: %s", err))
 		return
 	}
-
-	// For the purposes of this example code, hardcoding a response value to
-	// save into the Terraform state.
-	data.Id = types.String{Value: data.ClientId.Value}
 
 	// write logs using the tflog package
 	// see https://pkg.go.dev/github.com/hashicorp/terraform-plugin-log/tflog
