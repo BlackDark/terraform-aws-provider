@@ -131,7 +131,7 @@ func (p *provider) Configure(ctx context.Context, req tfsdk.ConfigureProviderReq
 
 func (p *provider) GetResources(ctx context.Context) (map[string]tfsdk.ResourceType, diag.Diagnostics) {
 	return map[string]tfsdk.ResourceType{
-		"awsextension_oidc_provider_client_id": oidcProviderClientIdResourceType{},
+		"aws-extension_oidc_provider_client_id": oidcProviderClientIdResourceType{},
 	}, nil
 }
 

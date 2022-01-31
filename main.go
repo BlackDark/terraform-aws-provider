@@ -30,7 +30,7 @@ var (
 func main() {
 	opts := tfsdk.ServeOpts{
 		// TODO: Update this string with the published name of your provider.
-		Name: "registry.terraform.io/blackdark/aws",
+		Name: "registry.terraform.io/blackdark/aws-extension",
 	}
 
 	err := tfsdk.Serve(context.Background(), provider.New(version), opts)
