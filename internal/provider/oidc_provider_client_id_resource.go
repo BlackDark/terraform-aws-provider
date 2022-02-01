@@ -50,7 +50,6 @@ func (t oidcProviderClientIdResourceType) NewResource(ctx context.Context, in tf
 type oidcProviderClientIdResourceData struct {
 	ClientId types.String `tfsdk:"client_id"`
 	OidcArn  types.String `tfsdk:"oidc_arn"`
-	Id       types.String `tfsdk:"id"`
 }
 
 type oidcProviderClientIdResource struct {
