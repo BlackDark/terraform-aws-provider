@@ -3,11 +3,11 @@ module github.com/hashicorp/terraform-provider-scaffolding-framework
 go 1.17
 
 require (
-	github.com/aws/aws-sdk-go-v2 v1.14.0
+	github.com/aws/aws-sdk-go-v2 v1.16.0
 	github.com/aws/aws-sdk-go-v2/config v1.13.1
-	github.com/aws/aws-sdk-go-v2/credentials v1.8.0
+	github.com/aws/aws-sdk-go-v2/credentials v1.11.0
 	github.com/aws/aws-sdk-go-v2/service/iam v1.16.0
-	github.com/aws/aws-sdk-go-v2/service/sts v1.14.0
+	github.com/aws/aws-sdk-go-v2/service/sts v1.16.1
 	github.com/hashicorp/terraform-plugin-docs v0.5.1
 	github.com/hashicorp/terraform-plugin-framework v0.5.0
 	github.com/hashicorp/terraform-plugin-go v0.5.0
@@ -22,13 +22,13 @@ require (
 	github.com/Masterminds/sprig v2.22.0+incompatible // indirect
 	github.com/armon/go-radix v0.0.0-20180808171621-7fddfc383310 // indirect
 	github.com/aws/aws-sdk-go v1.42.44 // indirect
-	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.10.0 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.4 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.2.0 // indirect
+	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.12.1 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.7 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.4.1 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/ini v1.3.5 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.7.0 // indirect
-	github.com/aws/aws-sdk-go-v2/service/sso v1.9.0 // indirect
-	github.com/aws/smithy-go v1.11.0 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.9.1 // indirect
+	github.com/aws/aws-sdk-go-v2/service/sso v1.11.1 // indirect
+	github.com/aws/smithy-go v1.11.1 // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/bgentry/speakeasy v0.1.0 // indirect
 	github.com/fatih/color v1.7.0 // indirect
