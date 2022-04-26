@@ -26,9 +26,9 @@ provider "aws-extension" {
 
 ### Required
 
-- **role_arn** (String) The ARN of the role to be assumed for this provider.
-- **session_name** (String) Session name which will be set for the assumed role.
+- `role_arn` (String) The ARN of the role to be assumed for this provider.
+- `session_name` (String) Session name which will be set for the assumed role.
 
 ### Optional
 
-- **region** (String) The region where the oidc provider will be updated. Defaults to us-east-1 if not set.
+- `region` (String) The region where the oidc provider will be updated. Defaults to us-east-1 if not set.

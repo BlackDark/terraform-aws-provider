@@ -24,7 +24,7 @@ resource "aws-extension_oidc_provider_client_id" "example" {
 
 ### Required
 
-- **client_id** (String) The ClientID/Audience to be added to the OIDC provider.
-- **oidc_arn** (String) The target OIDC provider ARN where the ClientID should be added.
+- `client_id` (String) The ClientID/Audience to be added to the OIDC provider.
+- `oidc_arn` (String) The target OIDC provider ARN where the ClientID should be added.
 
 
