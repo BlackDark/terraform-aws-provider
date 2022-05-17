@@ -4,10 +4,10 @@ go 1.17
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.16.3
-	github.com/aws/aws-sdk-go-v2/config v1.15.4
-	github.com/aws/aws-sdk-go-v2/credentials v1.12.0
+	github.com/aws/aws-sdk-go-v2/config v1.15.6
+	github.com/aws/aws-sdk-go-v2/credentials v1.12.1
 	github.com/aws/aws-sdk-go-v2/service/iam v1.18.4
-	github.com/aws/aws-sdk-go-v2/service/sts v1.16.4
+	github.com/aws/aws-sdk-go-v2/service/sts v1.16.5
 	github.com/hashicorp/terraform-plugin-docs v0.7.0
 	github.com/hashicorp/terraform-plugin-framework v0.6.1
 	github.com/hashicorp/terraform-plugin-go v0.9.0
